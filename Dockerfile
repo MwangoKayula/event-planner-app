@@ -7,6 +7,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Create data directory for SQLite
+RUN mkdir -p data
+
 EXPOSE 5000
 
-CMD ["python", "app/main.py"]
+CMD ["python", "-m", "app.main"]
+
