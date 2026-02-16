@@ -1,26 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 
-<a href="{{ url_for('add_event') }}" class="btn">Add Event</a>
+<h2>Add Event</h2>
 
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Location</th>
-        <th>Actions</th>
-    </tr>
-    {% for event in events %}
-    <tr>
-        <td>{{ event[1] }}</td>
-        <td>{{ event[2] }}</td>
-        <td>{{ event[3] }}</td>
-        <td>
-            <a href="{{ url_for('edit_event', event_id=event[0]) }}">Edit</a> |
-            <a href="{{ url_for('delete_event', event_id=event[0]) }}">Delete</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+<form method="POST" class="form">
+    <label>Title:</label>
+    <input type="text" name="title" required>
+
+    <label>Date:</label>
+    <input type="date" name="date" required>
+
+    <label>Location:</label>
+    <input type="text" name="location" required>
+
+    <button type="submit" class="btn">Save Event</button>
+</form>
 
 {% endblock %}

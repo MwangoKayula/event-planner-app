@@ -1,15 +1,30 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
+    background: #f4f6f8;
+    margin: 0;
 }
 
 .container {
-    width: 800px;
-    margin: auto;
-    background: white;
+    max-width: 1000px;
+    margin: 20px auto;
     padding: 20px;
-    margin-top: 40px;
+    background: white;
     border-radius: 8px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-form input {
+    padding: 8px;
+}
+
+.table-container {
+    overflow-x: auto;
 }
 
 table {
@@ -18,21 +33,45 @@ table {
     margin-top: 20px;
 }
 
-th, td {
+th {
+    background: #007BFF;
+    color: white;
+    padding: 10px;
+}
+
+td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
 
-th {
-    background-color: #007BFF;
-    color: white;
-}
-
 .btn {
-    display: inline-block;
     padding: 8px 12px;
     background: #007BFF;
     color: white;
     text-decoration: none;
     border-radius: 4px;
+}
+
+.btn-small {
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+}
+
+.edit { background: orange; }
+.delete { background: red; }
+
+.pagination {
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .top-bar {
+        flex-direction: column;
+    }
+
+    table, th, td {
+        font-size: 14px;
+    }
 }

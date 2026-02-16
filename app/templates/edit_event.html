@@ -3,7 +3,7 @@
 
 <h2>Edit Event</h2>
 
-<form method="POST">
+<form method="POST" class="form">
     <label>Title:</label>
     <input type="text" name="title" value="{{ event[1] }}" required>
 
@@ -13,7 +13,7 @@
     <label>Location:</label>
     <input type="text" name="location" value="{{ event[3] }}" required>
 
-    <button type="submit" class="btn">Update</button>
+    <button type="submit" class="btn">Update Event</button>
 </form>
 
 {% endblock %}
