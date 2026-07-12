@@ -6,9 +6,7 @@ init_db()
 
 EVENTS_PER_PAGE = 5
 
-# -----------------------
-# VIEW (with search + pagination)
-# -----------------------
+
 @app.route("/")
 def index():
     search = request.args.get("search", "")
