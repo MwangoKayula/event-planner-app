@@ -1,3 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Flask-WTF
+WTForms
+email-validator
+Flask-Migrate
 blinker==1.9.0
 click==8.3.1
 colorama==0.4.6
