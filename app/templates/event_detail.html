@@ -20,12 +20,12 @@
 <hr>
 <h5>Promote this event</h5>
 <div>
-    {% set share_url = url_for('event_detail', id=event.id, _external=true) %}
+    {% set share_url = url_for('main.event_detail', id=event.id, _external=true) %}
     <a href="https://vk.com/share.php?url={{ share_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">VK</a>
     <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">Facebook</a>
     <a href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ event.title }}" target="_blank" class="btn btn-sm btn-outline-secondary">X</a>
     <a href="https://api.whatsapp.com/send?text={{ event.title }}%20{{ share_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">WhatsApp</a>
 </div>
 <br>
-<a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
+<a href="{{ url_for('main.index') }}" class="btn btn-secondary">Back</a>
 {% endblock %}

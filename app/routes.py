@@ -40,7 +40,7 @@ def create_event():
                 db.session.add(member)
         db.session.commit()
         flash('Event created!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     return render_template('add_event.html', form=form)
 
 @bp.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -74,7 +74,7 @@ def edit_event(id):
                 db.session.add(member)
         db.session.commit()
         flash('Event updated!', 'success')
-        return redirect(url_for('event_detail', id=event.id))
+        return redirect(url_for('main.event_detail', id=event.id))
     return render_template('edit_event.html', form=form, event=event)
 
 @bp.route('/delete/<int:id>', methods=['POST'])
@@ -83,4 +83,4 @@ def delete_event(id):
     db.session.delete(event)
     db.session.commit()
     flash('Event deleted.', 'warning')
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
