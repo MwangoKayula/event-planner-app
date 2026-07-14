@@ -1,4 +1,4 @@
-flake8 app/
+flake8
 pytest
 Flask
 Flask-SQLAlchemy
