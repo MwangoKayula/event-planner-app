@@ -1,19 +1,62 @@
 {% extends "base.html" %}
 {% block content %}
+<h1 class="mt-4">Edit Event</h1>
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+        {% for error in form.title.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.date.label(class="form-label") }}
+        {{ form.date(class="form-control", id="datepicker") }}
+        {% for error in form.date.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.location.label(class="form-label") }}
+        {{ form.location(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.organizer.label(class="form-label") }}
+        {{ form.organizer(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.budget.label(class="form-label") }}
+        {{ form.budget(class="form-control", placeholder="0.00") }}
+    </div>
+    <div class="mb-3">
+        {{ form.details.label(class="form-label") }}
+        {{ form.details(class="form-control", rows=5) }}
+    </div>
 
-<h2>Edit Event</h2>
-
-<form method="POST" class="form">
-    <label>Title:</label>
-    <input type="text" name="title" value="{{ event[1] }}" required>
-
-    <label>Date:</label>
-    <input type="date" name="date" value="{{ event[2] }}" required>
-
-    <label>Location:</label>
-    <input type="text" name="location" value="{{ event[3] }}" required>
-
-    <button type="submit" class="btn">Update Event</button>
-</form>
-
+    <h5>Team Members</h5>
+    <div id="team-members">
+        {% for member in form.team_members %}
+        <div class="row mb-2 member-entry">
+            <div class="col-md-4">
+                {{ member.name.label(class="form-label") }}
+                {{ member.name(class="form-control") }}
+            </div>
+            <div class="col-md-4">
+                {{ member.contact.label(class="form-label") }}
+                {{ member.contact(class="form-control") }}
+            </div>
+            <div class="col-md-3">
+                {{ member.role.label(class="form-label") }}
+                {{ member.role(class="form-control") }}
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-danger remove-member" style="margin-top: 2rem;">×</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button type="button" class="btn btn-secondary" id="add-member">Add Team Member</button>
+    <br><br>
+    {{ form.submit(class="btn btn-primary") }}
 {% endblock %}
