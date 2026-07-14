@@ -6,7 +6,19 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    events = Event.query.order_by(Event.date).all()
+    q = request.args.get('q', '').strip()
+    if q:
+        # Search by title, description, location, organizer (case-insensitive)
+        events = Event.query.filter(
+            db.or_(
+                Event.title.ilike(f'%{q}%'),
+                Event.description.ilike(f'%{q}%'),
+                Event.location.ilike(f'%{q}%'),
+                Event.organizer.ilike(f'%{q}%')
+            )
+        ).order_by(Event.date).all()
+    else:
+        events = Event.query.order_by(Event.date).all()
     return render_template('index.html', events=events)
 
 @bp.route('/event/<int:id>')

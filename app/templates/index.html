@@ -1,25 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="mt-4">Events</h1>
-<div class="row">
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="page-title"><i class="fas fa-calendar-check me-2"></i>My Events</h1>
+    <a href="{{ url_for('main.create_event') }}" class="btn btn-success">
+        <i class="fas fa-plus me-1"></i> New Event
+    </a>
+</div>
+
+<!-- Search Bar -->
+<div class="search-bar mb-4">
+    <form method="GET" action="{{ url_for('main.index') }}" class="d-flex">
+        <input type="text" name="q" class="form-control form-control-lg" placeholder="Search events by title, location, organizer..." value="{{ request.args.get('q', '') }}">
+        <button class="btn btn-search" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+</div>
+
+<!-- Event Cards -->
+<div class="row event-grid">
     {% for event in events %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="event-card card h-100">
             <div class="card-body">
                 <h5 class="card-title">{{ event.title }}</h5>
-                <p class="card-text">{{ event.description or '' }}</p>
-                <p><strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d %H:%M') }}</p>
-                <p><strong>Budget:</strong> ${{ event.budget or 0 }}</p>
-                <a href="{{ url_for('main.event_detail', id=event.id) }}" class="btn btn-primary">View</a>
-                <a href="{{ url_for('main.edit_event', id=event.id) }}" class="btn btn-secondary">Edit</a>
+                <p class="card-text text-muted">{{ event.description or 'No description' }}</p>
+                <div class="event-meta">
+                    <span><i class="far fa-calendar-alt me-1"></i> {{ event.date.strftime('%b %d, %Y %H:%M') }}</span>
+                    <span><i class="fas fa-map-marker-alt me-1"></i> {{ event.location or 'TBD' }}</span>
+                    <span><i class="fas fa-user me-1"></i> {{ event.organizer or 'Unknown' }}</span>
+                    <span><i class="fas fa-coins me-1"></i> ${{ event.budget or 0 }}</span>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0">
+                <a href="{{ url_for('main.event_detail', id=event.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+                <a href="{{ url_for('main.edit_event', id=event.id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                 <form action="{{ url_for('main.delete_event', id=event.id) }}" method="POST" style="display:inline;">
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this event?')">Delete</button>
                 </form>
             </div>
         </div>
     </div>
     {% else %}
-    <p>No events yet. <a href="{{ url_for('main.create_event') }}">Create one</a>.</p>
+    <div class="col-12 text-center py-5">
+        <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
+        <h3>No events found</h3>
+        <p class="text-muted">Create your first event to get started!</p>
+        <a href="{{ url_for('main.create_event') }}" class="btn btn-success">Create Event</a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
