@@ -1,77 +1,230 @@
+/* ---- Color Theme ---- */
+:root {
+    --emerald: #2E8B57;
+    --emerald-dark: #1E6B3A;
+    --emerald-light: #3CB371;
+    --light-gray: #F5F5F5;
+    --brown: #8B4513;
+    --brown-light: #A0522D;
+    --white: #FFFFFF;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.15);
+    --border-radius: 16px;
+}
+
+/* ---- Global ---- */
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    margin: 0;
+    background-color: var(--light-gray);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-}
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.search-form input {
-    padding: 8px;
-}
-
-.table-container {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th {
-    background: #007BFF;
+/* ---- Header ---- */
+.header {
+    background: var(--emerald);
     color: white;
-    padding: 10px;
+    padding: 0.75rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-
-td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+.header .brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
-
-.btn {
-    padding: 8px 12px;
-    background: #007BFF;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-}
-
-.btn-small {
-    padding: 4px 8px;
-    border-radius: 4px;
-    text-decoration: none;
+.sidebar-toggle {
+    border-color: rgba(255,255,255,0.3);
     color: white;
 }
-
-.edit { background: orange; }
-.delete { background: red; }
-
-.pagination {
-    margin-top: 20px;
+.sidebar-toggle:hover {
+    background: rgba(255,255,255,0.1);
 }
 
-@media (max-width: 600px) {
-    .top-bar {
-        flex-direction: column;
+/* ---- Sidebar ---- */
+.sidebar {
+    background: var(--white);
+    min-height: calc(100vh - 64px);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+.sidebar .nav-link {
+    color: #333;
+    padding: 0.75rem 1.5rem;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+}
+.sidebar .nav-link:hover {
+    background-color: var(--light-gray);
+    border-left-color: var(--emerald);
+}
+.sidebar .nav-link.active {
+    background-color: #e8f5e9;
+    border-left-color: var(--emerald);
+    color: var(--emerald);
+}
+.sidebar .badge {
+    float: right;
+    margin-top: 3px;
+}
+
+/* ---- Main Content ---- */
+.main-content {
+    padding-top: 1.5rem;
+}
+
+/* ---- Cards (Event Cards) ---- */
+.event-card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    background: var(--white);
+    overflow: hidden;
+}
+.event-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+.event-card .card-body {
+    padding: 1.25rem;
+}
+.event-card .card-title {
+    color: var(--brown);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.event-meta {
+    font-size: 0.85rem;
+    color: #666;
+}
+.event-meta span {
+    display: inline-block;
+    margin-right: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+.event-meta i {
+    color: var(--emerald);
+    width: 16px;
+}
+.event-card .card-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #eee;
+}
+.event-card .card-footer .btn {
+    border-radius: 20px;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+/* ---- Form Card ---- */
+.form-card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    background: var(--white);
+    margin-top: 1rem;
+}
+.form-card:hover {
+    box-shadow: var(--shadow-hover);
+}
+.form-card .card-header {
+    background: var(--emerald);
+    color: white;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    padding: 1rem 1.5rem;
+}
+.form-card .card-header h3 {
+    font-weight: 600;
+}
+.form-card .card-body {
+    padding: 2rem;
+}
+.form-control:focus {
+    border-color: var(--emerald);
+    box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.25);
+}
+.btn-success {
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+}
+.btn-success:hover {
+    background-color: var(--emerald-dark);
+    border-color: var(--emerald-dark);
+}
+.btn-outline-success {
+    color: var(--emerald);
+    border-color: var(--emerald);
+}
+.btn-outline-success:hover {
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+}
+
+/* ---- Detail Card ---- */
+.detail-card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.detail-card .card-footer {
+    background: transparent;
+    border-top: 1px solid #eee;
+}
+
+/* ---- Search Bar ---- */
+.search-bar .form-control {
+    border-radius: 30px 0 0 30px;
+    border: 1px solid #ddd;
+    padding-left: 1.5rem;
+}
+.search-bar .btn-search {
+    border-radius: 0 30px 30px 0;
+    background: var(--emerald);
+    color: white;
+    border: 1px solid var(--emerald);
+    padding: 0 1.5rem;
+}
+.search-bar .btn-search:hover {
+    background: var(--emerald-dark);
+}
+
+/* ---- Social Share Buttons ---- */
+.social-share .btn {
+    border-radius: 20px;
+    margin-right: 6px;
+}
+
+/* ---- Responsive Sidebar ---- */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        transform: translateX(-100%);
+        z-index: 999;
+        overflow-y: auto;
+        background: var(--white);
+        box-shadow: 2px 0 12px rgba(0,0,0,0.15);
     }
-
-    table, th, td {
-        font-size: 14px;
+    .sidebar.open {
+        transform: translateX(0);
     }
+    .main-content {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .header .brand {
+        font-size: 1rem;
+    }
+}
+
+/* ---- Misc ---- */
+.page-title {
+    color: var(--brown);
+    font-weight: 700;
+}
+.text-muted {
+    color: #888 !important;
 }

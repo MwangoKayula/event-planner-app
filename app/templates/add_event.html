@@ -1,82 +1,94 @@
 {% extends "base.html" %}
 {% block content %}
-<h1 class="mt-4">Create Event</h1>
-<form method="POST" action="">
-    {{ form.hidden_tag() }}
-    <div class="mb-3">
-        {{ form.title.label(class="form-label") }}
-        {{ form.title(class="form-control") }}
-        {% for error in form.title.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
-    </div>
-    <div class="mb-3">
-        {{ form.description.label(class="form-label") }}
-        {{ form.description(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.date.label(class="form-label") }}
-        {{ form.date(class="form-control", id="datepicker") }}
-        {% for error in form.date.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
-    </div>
-    <div class="mb-3">
-        {{ form.location.label(class="form-label") }}
-        {{ form.location(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.organizer.label(class="form-label") }}
-        {{ form.organizer(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.budget.label(class="form-label") }}
-        {{ form.budget(class="form-control", placeholder="0.00") }}
-    </div>
-    <div class="mb-3">
-        {{ form.details.label(class="form-label") }}
-        {{ form.details(class="form-control", rows=5) }}
-    </div>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card form-card">
+            <div class="card-header">
+                <h3 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Create New Event</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.title.label(class="form-label") }}
+                        {{ form.title(class="form-control") }}
+                        {% for error in form.title.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.description.label(class="form-label") }}
+                        {{ form.description(class="form-control") }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.date.label(class="form-label") }}
+                            {{ form.date(class="form-control", id="datepicker") }}
+                            {% for error in form.date.errors %}<div class="text-danger">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.location.label(class="form-label") }}
+                            {{ form.location(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.organizer.label(class="form-label") }}
+                            {{ form.organizer(class="form-control") }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.budget.label(class="form-label") }}
+                            {{ form.budget(class="form-control", placeholder="0.00") }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.details.label(class="form-label") }}
+                        {{ form.details(class="form-control", rows=4) }}
+                    </div>
 
-    <h5>Team Members</h5>
-    <div id="team-members">
-        {% for member in form.team_members %}
-        <div class="row mb-2 member-entry">
-            <div class="col-md-4">
-                {{ member.name.label(class="form-label") }}
-                {{ member.name(class="form-control") }}
-            </div>
-            <div class="col-md-4">
-                {{ member.contact.label(class="form-label") }}
-                {{ member.contact(class="form-control") }}
-            </div>
-            <div class="col-md-3">
-                {{ member.role.label(class="form-label") }}
-                {{ member.role(class="form-control") }}
-            </div>
-            <div class="col-md-1">
-                <button type="button" class="btn btn-danger remove-member" style="margin-top: 2rem;">×</button>
+                    <h5 class="mt-4"><i class="fas fa-users me-2"></i>Team Members</h5>
+                    <div id="team-members">
+                        {% for member in form.team_members %}
+                        <div class="row mb-2 member-entry">
+                            <div class="col-md-4">
+                                {{ member.name.label(class="form-label") }}
+                                {{ member.name(class="form-control") }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ member.contact.label(class="form-label") }}
+                                {{ member.contact(class="form-control") }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ member.role.label(class="form-label") }}
+                                {{ member.role(class="form-control") }}
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-danger remove-member" style="margin-top: 2rem;"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="btn btn-secondary mb-3" id="add-member"><i class="fas fa-plus"></i> Add Member</button>
+
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class="btn btn-success btn-lg") }}
+                    </div>
+                </form>
             </div>
         </div>
-        {% endfor %}
     </div>
-    <button type="button" class="btn btn-secondary" id="add-member">Add Team Member</button>
-    <br><br>
-    {{ form.submit(class="btn btn-primary") }}
-</form>
+</div>
 
 {% endblock %}
 {% block scripts %}
 <script>
     flatpickr("#datepicker", { enableTime: true, dateFormat: "Y-m-d H:i" });
 
-    // Add member row
     document.getElementById('add-member').addEventListener('click', function() {
         const container = document.getElementById('team-members');
         const total = container.children.length;
-        // Clone the last entry, reset values, update indexes
         const last = container.lastElementChild;
         const clone = last.cloneNode(true);
-        // Clear input values
         clone.querySelectorAll('input').forEach(inp => inp.value = '');
-        // Update name attributes and IDs (WTForms uses indexed names)
-        // We'll use a brute approach: replace index with total
+        // Update name attributes
         const inputs = clone.querySelectorAll('[name]');
         inputs.forEach(inp => {
             const name = inp.getAttribute('name');
@@ -84,7 +96,6 @@
             inp.setAttribute('name', newName);
             inp.id = newName.replace(/-/g, '_');
         });
-        // Also update labels
         const labels = clone.querySelectorAll('label');
         labels.forEach(lbl => {
             const forAttr = lbl.getAttribute('for');
@@ -96,14 +107,13 @@
         container.appendChild(clone);
     });
 
-    // Remove member row
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-member')) {
+        if (e.target.classList.contains('remove-member') || e.target.closest('.remove-member')) {
             const row = e.target.closest('.member-entry');
             if (row.parentElement.children.length > 1) {
                 row.remove();
             } else {
-                alert('You must have at least one member.');
+                alert('You must have at least one team member.');
             }
         }
     });
