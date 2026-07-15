@@ -26,6 +26,7 @@ def event_detail(id):
     event = Event.query.get_or_404(id)
     return render_template('event_detail.html', event=event)
 
+
 @bp.route('/create', methods=['GET', 'POST'])
 def create_event():
     form = EventForm()
@@ -54,6 +55,7 @@ def create_event():
         flash('Event created!', 'success')
         return redirect(url_for('main.index'))
     return render_template('add_event.html', form=form)
+
 
 @bp.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_event(id):
@@ -88,6 +90,7 @@ def edit_event(id):
         flash('Event updated!', 'success')
         return redirect(url_for('main.event_detail', id=event.id))
     return render_template('edit_event.html', form=form, event=event)
+
 
 @bp.route('/delete/<int:id>', methods=['POST'])
 def delete_event(id):
